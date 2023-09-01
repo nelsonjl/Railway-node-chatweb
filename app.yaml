@@ -1,0 +1,31 @@
+runtime: nodejs12
+service: livechatgroup
+instance_class: F4_1G
+
+automatic_scaling:
+  min_idle_instances: automatic
+  max_idle_instances: automatic
+  min_pending_latency: automatic
+  max_pending_latency: automatic
+  target_cpu_utilization: 0.9
+  max_instances: 2
+  max_concurrent_requests: 50
+
+
+env_variables:
+  BUCKET_NAME: "HereAndNow"
+  DB_USER: root
+  DB_PASS: Idat123
+  DB_NAME: hereAndNow
+  # e.g. my-awesome-project:us-central1:my-cloud-sql-instance
+  CLOUD_SQL_CONNECTION_NAME : hereandnow-395322:southamerica-west1:hereandnow
+  PROJECT_ID :  hereandnow-395322
+
+handlers:
+- url: /stylesheets
+  static_dir: stylesheets
+
+- url: /.*
+  secure: always
+  redirect_http_response_code: 301
+  script: auto
